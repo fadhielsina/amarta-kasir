@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +10,12 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
     <link rel="icon" href="{{ url($setting->path_logo) }}" type="image/png">
+
+    <!-- PWA  -->
+    <meta name="theme-color" content="#6777ef" />
+    <link rel="apple-touch-icon" href="{{ asset('logo.png') }}">
+    <link rel="manifest" href="{{ asset('/manifest.json') }}">
+
 
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="{{ asset('/AdminLTE-2/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
@@ -30,11 +37,11 @@
   <![endif]-->
 
     <!-- Google Font -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
     @stack('css')
 </head>
+
 <body class="hold-transition skin-purple-light sidebar-mini">
     <div class="wrapper">
 
@@ -51,14 +58,14 @@
                 </h1>
                 <ol class="breadcrumb">
                     @section('breadcrumb')
-                        <li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> Home</a></li>
                     @show
                 </ol>
             </section>
 
             <!-- Main content -->
             <section class="content">
-                
+
                 @yield('content')
 
             </section>
@@ -85,12 +92,31 @@
     <!-- Validator -->
     <script src="{{ asset('js/validator.min.js') }}"></script>
 
+    <script src="{{ asset('/sw.js') }}"></script>
     <script>
-        function preview(selector, temporaryFile, width = 200)  {
+        if ("serviceWorker" in navigator) {
+            // Register a service worker hosted at the root of the
+            // site using the default scope.
+            navigator.serviceWorker.register("/sw.js").then(
+                (registration) => {
+                    console.log("Service worker registration succeeded:", registration);
+                },
+                (error) => {
+                    console.error(`Service worker registration failed: ${error}`);
+                },
+            );
+        } else {
+            console.error("Service workers are not supported.");
+        }
+    </script>
+
+    <script>
+        function preview(selector, temporaryFile, width = 200) {
             $(selector).empty();
             $(selector).append(`<img src="${window.URL.createObjectURL(temporaryFile)}" width="${width}">`);
         }
     </script>
     @stack('scripts')
 </body>
+
 </html>

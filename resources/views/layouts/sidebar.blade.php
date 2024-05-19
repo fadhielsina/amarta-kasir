@@ -12,7 +12,7 @@
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
-        
+
         <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
@@ -24,6 +24,11 @@
 
             @if (auth()->user()->level == 1)
             <li class="header">MASTER</li>
+            <li>
+                <a href="{{ route('gerai.index') }}">
+                    <i class="fa fa-cubes"></i> <span>Gerai</span>
+                </a>
+            </li>
             <li>
                 <a href="{{ route('kategori.index') }}">
                     <i class="fa fa-cube"></i> <span>Kategori</span>

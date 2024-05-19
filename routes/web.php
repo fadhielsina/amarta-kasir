@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\{
     DashboardController,
+    GeraiController,
     KategoriController,
     LaporanController,
     ProdukController,
@@ -36,6 +37,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::group(['middleware' => 'level:1'], function () {
+        Route::get('/gerai/data', [GeraiController::class, 'data'])->name('gerai.data');
+        Route::resource('/gerai', GeraiController::class);
+
         Route::get('/kategori/data', [KategoriController::class, 'data'])->name('kategori.data');
         Route::resource('/kategori', KategoriController::class);
 
@@ -95,7 +99,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/setting/first', [SettingController::class, 'show'])->name('setting.show');
         Route::post('/setting', [SettingController::class, 'update'])->name('setting.update');
     });
- 
+
     Route::group(['middleware' => 'level:1,2'], function () {
         Route::get('/profil', [UserController::class, 'profil'])->name('user.profil');
         Route::post('/profil', [UserController::class, 'updateProfil'])->name('user.update_profil');

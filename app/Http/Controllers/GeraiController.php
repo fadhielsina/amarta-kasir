@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Gerai;
 use Illuminate\Http\Request;
-use App\Models\Kategori;
 
-class KategoriController extends Controller
+class GeraiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,21 +14,21 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        return view('kategori.index');
+        return view('gerai.index');
     }
 
     public function data()
     {
-        $kategori = Kategori::orderBy('id_kategori', 'desc')->get();
+        $gerai = Gerai::orderBy('id_gerai', 'desc')->get();
 
         return datatables()
-            ->of($kategori)
+            ->of($gerai)
             ->addIndexColumn()
-            ->addColumn('aksi', function ($kategori) {
+            ->addColumn('aksi', function ($gerai) {
                 return '
                 <div class="btn-group">
-                    <button onclick="editForm(`' . route('kategori.update', $kategori->id_kategori) . '`)" class="btn btn-xs btn-info btn-flat"><i class="fa fa-pencil"></i></button>
-                    <button onclick="deleteData(`' . route('kategori.destroy', $kategori->id_kategori) . '`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
+                    <button onclick="editForm(`' . route('gerai.update', $gerai->id_gerai) . '`)" class="btn btn-xs btn-info btn-flat"><i class="fa fa-pencil"></i></button>
+                    <button onclick="deleteData(`' . route('gerai.destroy', $gerai->id_gerai) . '`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
                 </div>
                 ';
             })
@@ -54,9 +54,11 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        $kategori = new Kategori();
-        $kategori->nama_kategori = $request->nama_kategori;
-        $kategori->save();
+        $gerai = new Gerai();
+        $gerai->nama_gerai = $request->nama_gerai;
+        $gerai->alamat = $request->alamat;
+        $gerai->no_tlp = $request->no_tlp;
+        $gerai->save();
 
         return response()->json('Data berhasil disimpan', 200);
     }
@@ -69,9 +71,9 @@ class KategoriController extends Controller
      */
     public function show($id)
     {
-        $kategori = Kategori::find($id);
+        $gerai = Gerai::find($id);
 
-        return response()->json($kategori);
+        return response()->json($gerai);
     }
 
     /**
@@ -94,9 +96,11 @@ class KategoriController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $kategori = Kategori::find($id);
-        $kategori->nama_kategori = $request->nama_kategori;
-        $kategori->update();
+        $gerai = Gerai::find($id);
+        $gerai->nama_gerai = $request->nama_gerai;
+        $gerai->alamat = $request->alamat;
+        $gerai->no_tlp = $request->no_tlp;
+        $gerai->update();
 
         return response()->json('Data berhasil disimpan', 200);
     }
@@ -109,8 +113,8 @@ class KategoriController extends Controller
      */
     public function destroy($id)
     {
-        $kategori = Kategori::find($id);
-        $kategori->delete();
+        $gerai = Gerai::find($id);
+        $gerai->delete();
 
         return response(null, 204);
     }
