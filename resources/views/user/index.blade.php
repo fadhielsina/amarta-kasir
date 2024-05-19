@@ -1,12 +1,12 @@
 @extends('layouts.master')
 
 @section('title')
-    Daftar User
+Daftar User
 @endsection
 
 @section('breadcrumb')
-    @parent
-    <li class="active">Daftar User</li>
+@parent
+<li class="active">Daftar User</li>
 @endsection
 
 @section('content')
@@ -22,6 +22,7 @@
                         <th width="5%">No</th>
                         <th>Nama</th>
                         <th>Email</th>
+                        <th>Gerai</th>
                         <th width="15%"><i class="fa fa-cog"></i></th>
                     </thead>
                 </table>
@@ -37,25 +38,39 @@
 <script>
     let table;
 
-    $(function () {
+    $(function() {
         table = $('.table').DataTable({
             responsive: true,
             processing: true,
             serverSide: true,
             autoWidth: false,
             ajax: {
-                url: '{{ route('user.data') }}',
+                url: "{{route('user.data')}}",
             },
-            columns: [
-                {data: 'DT_RowIndex', searchable: false, sortable: false},
-                {data: 'name'},
-                {data: 'email'},
-                {data: 'aksi', searchable: false, sortable: false},
+            columns: [{
+                    data: 'DT_RowIndex',
+                    searchable: false,
+                    sortable: false
+                },
+                {
+                    data: 'name'
+                },
+                {
+                    data: 'email'
+                },
+                {
+                    data: 'nama_gerai'
+                },
+                {
+                    data: 'aksi',
+                    searchable: false,
+                    sortable: false
+                },
             ]
         });
 
-        $('#modal-form').validator().on('submit', function (e) {
-            if (! e.preventDefault()) {
+        $('#modal-form').validator().on('submit', function(e) {
+            if (!e.preventDefault()) {
                 $.post($('#modal-form form').attr('action'), $('#modal-form form').serialize())
                     .done((response) => {
                         $('#modal-form').modal('hide');
@@ -96,6 +111,7 @@
             .done((response) => {
                 $('#modal-form [name=name]').val(response.name);
                 $('#modal-form [name=email]').val(response.email);
+                $('#modal-form [name=id_gerai]').val(response.id_gerai);
             })
             .fail((errors) => {
                 alert('Tidak dapat menampilkan data');

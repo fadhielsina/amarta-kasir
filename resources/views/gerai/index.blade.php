@@ -92,8 +92,6 @@ Daftar Gerai
         $('#modal-form form').attr('action', url);
         $('#modal-form [name=_method]').val('post');
         $('#modal-form [name=nama_gerai]').focus();
-        $('#modal-form [name=alamat]').focus();
-        $('#modal-form [name=no_tlp]').focus();
     }
 
     function editForm(url) {
@@ -104,8 +102,6 @@ Daftar Gerai
         $('#modal-form form').attr('action', url);
         $('#modal-form [name=_method]').val('put');
         $('#modal-form [name=nama_gerai]').focus();
-        $('#modal-form [name=alamat]').focus();
-        $('#modal-form [name=no_tlp]').focus();
 
         $.get(url)
             .done((response) => {
