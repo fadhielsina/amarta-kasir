@@ -1,7 +1,7 @@
 {
     "name": "Amarta Kasir",
     "short_name": "JTA",
-    "start_url": "/index.php",
+    "start_url": "/",
     "background_color": "#6777ef",
     "description": "Amarta Kasir",
     "display": "fullscreen",
