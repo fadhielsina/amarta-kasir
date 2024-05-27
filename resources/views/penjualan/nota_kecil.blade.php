@@ -116,6 +116,9 @@
 
     <p class="text-center">===================================</p>
     <p class="text-center">-- TERIMA KASIH --</p>
+    <p class="text-center">===================================</p>
+    <p class="text-center">-- www.amartapure.com --</p>
+    <p class="text-center">===================================</p>
 
     <script>
         let body = document.body;
